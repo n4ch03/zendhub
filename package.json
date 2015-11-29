@@ -1,0 +1,25 @@
+{
+  "name": "zendhub",
+  "version": "0.0.1",
+  "description": "Bi Directional communication between Zendesk & Github",
+  "main": "web-tasks/zendhub-wt.js",
+  "scripts": {
+    "test": "mocha web-tasks/zendhub-wt-tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/n4ch03/zendhub.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/n4ch03/zendhub/issues"
+  },
+  "homepage": "https://github.com/n4ch03/zendhub",
+  "devDependencies": {
+    "bluebird": "^3.0.5",
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
+    "mock-require": "^1.2.1"
+  }
+}
