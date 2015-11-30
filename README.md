@@ -1,4 +1,4 @@
-# zendhub
+# zendhub: integration webhooks between Zendesk & Github Issues
 
 ## Motivation
 
