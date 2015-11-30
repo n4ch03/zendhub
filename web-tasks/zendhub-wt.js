@@ -127,7 +127,8 @@ GithubClient.prototype.updateTicket = function(issueId, ticket, commentsJson) {
 
 GithubClient.prototype.buildBody = function(ticket, commentsJson) {
   var users = this.getUsers(commentsJson.users);
-  var commentSummary = '* Ticket Status: **' + ticket.status +'**\r\n';
+  var commentSummary = '* Ticket ID: **' + ticket.id + '** \r\n';
+  commentSummary += '* Ticket Status: **' + ticket.status +'**\r\n';
   if (ticket.priority !== null) {
     commentSummary += '* Ticket Priority: **' + ticket.priority +'**\r\n';
   }
