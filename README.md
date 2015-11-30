@@ -1,4 +1,11 @@
-# zendhub
+# zendhub: integration webhooks between Zendesk & Github Issues
+
+## Roadmap / Next Steps
+
+* Move to a single webtask project (Express)
+* Multi file project with webpack or other solution
+* Add Tests
+* Document better the process of work with state machine and brainstorm regarding other state change triggers 
 
 ## Motivation
 
