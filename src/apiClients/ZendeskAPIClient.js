@@ -72,9 +72,10 @@ export default class ZendeskAPIClient extends BaseAPIClient {
   }
 
   getGithubIssue(custom_fields) {
-    var that = this;
-    var matches = custom_fields.filter(function (cf) {
-      return cf.id === that.githubField;
+    let that = this;
+    let matches = custom_fields.filter(function (cf) {
+      return cf.id === that.githubField && cf.value !== ''
+        && cf.value !== null;
     });
 
     if (matches.length === 1) {

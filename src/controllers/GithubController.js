@@ -3,14 +3,31 @@
  *  GithubController: definition of controller for github webhook listener
  */
 import resourceHandler from './utils'
-import bluebird from 'bluebird'
+import ZendeskAPIClient from '../apiClients/ZendeskAPIClient'
 
 export default class GithubController {
 
 	post() {
 		return resourceHandler((context, req) => {
-			console.log(context);
-      return bluebird.resolve({"message": "topu Github"});
+			let re = /\[ZendeskId:(.*)\]/m;
+			let title = req.body.issue.title;
+			let zendeskTicketID;
+
+			if (req.body.action === 'closed' && re.test(title)) {
+				zendeskTicketID = title.match(re)[1];
+				let zendeskClient = new ZendeskAPIClient(context.data.ZENDESK_USERNAME,
+					context.data.ZENDESK_PASSWORD, context.data.ZENDESK_DOMAIN, Number(context.data.ZENDESK_GITHUB_FIELD_ID));
+
+				return zendeskClient.updateTicketTag(zendeskTicketID)
+				.then(function (json) {
+					return zendeskClient.updateTicketComment(zendeskTicketID);
+				})
+				.then(function (json) {
+					return {"ok": true};
+				});
+			} else {
+				return {"ok": true};
+			}
     });
 	}
 }

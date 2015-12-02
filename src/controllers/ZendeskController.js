@@ -3,7 +3,6 @@
  *  ZendeskController: definition of controller for zendesk trigger listener
  */
 import resourceHandler from './utils';
-import bluebird from 'bluebird';
 import ZendeskAPIClient from '../apiClients/ZendeskAPIClient';
 import GithubAPIClient from '../apiClients/GithubAPIClient';
 
@@ -39,7 +38,7 @@ export default class ZendeskController {
       }).then(function (json) {
         return zendeskClient.updateGithubIssue(ticketId, json.number, customFields);
       }).then(function (json) {
-        return bluebird.resolve({"ok": true});;
+        return {"ok": true};
       });
     });
 	}
