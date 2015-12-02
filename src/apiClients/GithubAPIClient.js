@@ -53,9 +53,13 @@ export default class GithubAPIClient extends BaseAPIClient{
       if (comment.updated_at !== undefined) {
         commentSummary += "### Time Updated: " + comment.updated_at + "\r\n";
       }
-      commentSummary += "![](" + users[comment.author_id].photo.content_url
-                        + ")" + "\r\n";
+      if (users[comment.author_id].photo !== null) {
+        commentSummary += "![](" + users[comment.author_id].photo.content_url
+                          + ")" + "\r\n";
+      }
+
       commentSummary += "**Name** " + users[comment.author_id].name + "\r\n";
+
       if (comment.public) {
         commentSummary += "**Comment** " + comment.body + "\r\n";
       } else {
