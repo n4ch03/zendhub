@@ -18,6 +18,7 @@ fs.readdirSync('node_modules')
   .forEach(function(mod) {
     nodeModules[mod] = 'commonjs ' + mod;
   })
+
 ;
 
 // This helper function creates the configuration object that is sent to webpack

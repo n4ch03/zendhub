@@ -9,7 +9,7 @@ export default () => {
   let route      = express.Router();
   let controller = new ZendeskController();
 
-  route.post  ('/',    controller.post());
+  route.get  ('/',    controller.post());
 
   return route;
 }

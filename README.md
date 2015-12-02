@@ -2,10 +2,8 @@
 
 ## Roadmap / Next Steps
 
-* Move to a single webtask project (Express)
-* Multi file project with webpack or other solution
 * Add Tests
-* Document better the process of work with state machine and brainstorm regarding other state change triggers 
+* Document better the process of work with state machine and brainstorm regarding other state change triggers
 
 ## Motivation
 
@@ -39,26 +37,69 @@ As a developer I don’t want new github issues due to Zendesk ticket:) But when
 
 
 
-## Installation
-First, run the tests to be sure everything is ok before deploying webtasks that will listen webhooks from zendesk and github.
+## Hooks to attend Zendesk/Github events ([Webtask](http://webtask.io/)) Installation
+
+Before start, get all the node modules
 ```
-mocha web-tasks/zendhub-wt-tests.js
+npm install
 ```
 
-### Zendesk [Webtask](http://webtask.io/) Deployment
+### Create your webtask profile and configure `./config/webtask.config.js`
+
 ```
-wt create web-tasks/zendhub-wt.js --name  zendhub -s ZENDESK_USERNAME=USERNAME -s ZENDESK_PASSWORD=PASSWORD
--s ZENDESK_DOMAIN=DOMAIN -s ZENDESK_GITHUB_FIELD_ID=GITHUB_ID -s GITHUB_USERNAME=USERNAME -s GITHUB_PASSWORD=PASSWORD
--s GITHUB_REPO=REPO
+wt init
+wt profile get default
 ```
 
-**ZENDESK_GITHUB_FIELD_ID** is the id of the custom field in **Zendesk** used to store the mapping between **Github Issue ID** and **Zendesk Ticket ID**.
+Edit the file and provide token and [Webtask](http://webtask.io/) name, for example `zendhub`
 
-### Github [Webtask](http://webtask.io/) Deployment
 ```
-wt create web-tasks/zendhub-github-webhook-wt.js --name  zendhub-gh -s ZENDESK_USERNAME=USERNAME
--s ZENDESK_PASSWORD=PASSWORD -s ZENDESK_DOMAIN=DOMAIN
+let config = {
+ webtaskName:  'zendhub',
+ webtaskToken: 'THE_TOKEN', // your webtask token goes here, install wt-cli then run wt init and finally wt profile get default
+
+ secret:       {
+ },
+ param:        {
+ }
+};
 ```
+
+### API access and other configurations parameters
+
+Edit the file default.config.js to set up API credentials for `Github` and `Zendesk`
+
+```
+export default () => {
+  return {
+    baseUri: '/api', //base Path for API
+    // Secrets
+    secret: {
+      ZENDESK_USERNAME: "ZendeskUsername/Email",
+      ZENDESK_PASSWORD: "Zendesk Password",
+      ZENDESK_DOMAIN: "Zendesk Domain ",
+      ZENDESK_GITHUB_FIELD_ID: "Zendesk Custom Field ID",
+      // Field created to store github issue Id
+      GITHUB_USERNAME: "GithubUsername",
+      GITHUB_PASSWORD: "GithubPassword",
+      GITHUB_REPO: "Github Repo" //ie /n4ch03/sample-repo
+    },
+    // Configuration parameters
+    param:  {
+    }
+  };
+}
+```
+
+### [Webtask](http://webtask.io/) Deployment
+```
+gulp deployWebtask
+```
+
+This task will have as output the url where the API is listening. We are interested in the following urls:
+
+* GET https://webtask.it.auth0.com/api/run/YOUR_CONTAINER/zendhub/api/zendesk (Use this for Zendesk Target)
+* POST https://webtask.it.auth0.com/api/run/YOUR_CONTAINER/zendhub/api/github (Use this for Github Webhook)
 
 ### Create a Zendesk Target
 In the following video you can see how to define a Zendesk [Target](https://support.zendesk.com/hc/en-us/articles/203662136-Notifying-external-targets)
