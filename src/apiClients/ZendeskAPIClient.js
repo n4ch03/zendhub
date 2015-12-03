@@ -42,9 +42,8 @@ export default class ZendeskAPIClient extends BaseAPIClient {
 
   updateGithubIssue(ticketId, githubIssueId, customFields) {
     let needsUpdate = false;
-    var  that = this;
-    customFields.forEach(function(custom){
-      if (custom.id === that.githubField) {
+    customFields.forEach(custom => {
+      if (custom.id === this.githubField) {
         needsUpdate = true;
         custom.value = githubIssueId;
       }
@@ -72,9 +71,8 @@ export default class ZendeskAPIClient extends BaseAPIClient {
   }
 
   getGithubIssue(custom_fields) {
-    let that = this;
-    let matches = custom_fields.filter(function (cf) {
-      return cf.id === that.githubField && cf.value !== ''
+    let matches = custom_fields.filter(cf => {
+      return cf.id === this.githubField && cf.value !== ''
         && cf.value !== null;
     });
 

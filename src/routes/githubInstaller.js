@@ -9,6 +9,6 @@ export default () => {
   let route      = express.Router();
   let controller = new GithubController();
 
-  route.post  ('/',    controller.post());
+  route.post  ('/',    controller.doPost());
   return route;
 }

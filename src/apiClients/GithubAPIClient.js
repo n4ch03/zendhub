@@ -48,7 +48,7 @@ export default class GithubAPIClient extends BaseAPIClient{
       commentSummary += '* Ticket Type: **' + ticket.type +'**\r\n';
     }
     commentSummary += '\r\n';
-    commentsJson.comments.forEach(function(comment) {
+    commentsJson.comments.forEach((comment) => {
       commentSummary += "### Time Created: " + comment.created_at + "\r\n";
       if (comment.updated_at !== undefined) {
         commentSummary += "### Time Updated: " + comment.updated_at + "\r\n";
@@ -72,9 +72,7 @@ export default class GithubAPIClient extends BaseAPIClient{
 
   getUsers(users) {
     let usersObj = {};
-    users.forEach( function(user) {
-      usersObj[user.id] = user;
-    });
+    users.forEach( user => { usersObj[user.id] = user} );
     return usersObj;
   }
 }

@@ -12,7 +12,7 @@ let app    = express();
 let config = apiConfig();
 
 // inject context into all requests when running locally
-app.use(function (req, res, next) {
+app.use( (req, res, next) => {
   req.webtaskContext = {data: _.assign(config.param, config.secret)};
   next();
 })

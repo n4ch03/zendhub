@@ -9,7 +9,7 @@ import GithubAPIClient from '../apiClients/GithubAPIClient';
 
 export default class ZendeskController {
 
-	post() {
+	doGet() {
 		return resourceHandler((context, req) => {
 			//TODO: Create a Middleware to validate this :)
 			/*if (!isConfiguredProperly()) {
@@ -23,22 +23,19 @@ export default class ZendeskController {
       let ticketId = req.query.ticket;
       let ticket, customFields;
       return zendeskClient.getTicket(ticketId)
-      .then(function(json) {
+      .then( json => {
         ticket = json.ticket;
         customFields = json.ticket.custom_fields;
         return zendeskClient.getComments(ticketId);
-      }).then(function (json) {
+      }).then( json => {
         var githubIssue = zendeskClient.getGithubIssue(customFields);
         if (githubIssue > 0) {
           return githubClient.updateTicket(githubIssue, ticket, json);
         } else {
           return githubClient.createTicket(ticket, json);
         }
-      }).then(function (json) {
-        return zendeskClient.updateGithubIssue(ticketId, json.number, customFields);
-      }).then(function (json) {
-        return {"ok": true};
-      });
+      }).then( json => zendeskClient.updateGithubIssue(ticketId, json.number, customFields))
+				.then( json => {return {"ok": true}});
     });
 	}
 }

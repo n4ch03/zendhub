@@ -7,7 +7,7 @@ import ZendeskAPIClient from '../apiClients/ZendeskAPIClient'
 
 export default class GithubController {
 
-	post() {
+	doPost() {
 		return resourceHandler((context, req) => {
 			let re = /\[ZendeskId:(.*)\]/m;
 			let title = req.body.issue.title;
@@ -19,12 +19,8 @@ export default class GithubController {
 					context.data.ZENDESK_PASSWORD, context.data.ZENDESK_DOMAIN, Number(context.data.ZENDESK_GITHUB_FIELD_ID));
 
 				return zendeskClient.updateTicketTag(zendeskTicketID)
-				.then(function (json) {
-					return zendeskClient.updateTicketComment(zendeskTicketID);
-				})
-				.then(function (json) {
-					return {"ok": true};
-				});
+					.then( json => zendeskClient.updateTicketComment(zendeskTicketID))
+					.then( json => {return {"ok": true}});
 			} else {
 				return {"ok": true};
 			}
