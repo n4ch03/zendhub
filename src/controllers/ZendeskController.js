@@ -11,11 +11,6 @@ export default class ZendeskController {
 
 	doGet() {
 		return resourceHandler((context, req) => {
-			//TODO: Create a Middleware to validate this :)
-			/*if (!isConfiguredProperly()) {
-        return cb(409, {"message": "Sorry your webtask does not have " +
-          "all the parameters configured correctly please check README"});
-      }*/
 			let zendeskClient = new ZendeskAPIClient(context.data.ZENDESK_USERNAME,
 				context.data.ZENDESK_PASSWORD, context.data.ZENDESK_DOMAIN, Number(context.data.ZENDESK_GITHUB_FIELD_ID));
       let githubClient = new GithubAPIClient(context.data.GITHUB_USERNAME,
