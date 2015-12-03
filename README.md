@@ -37,7 +37,9 @@ As a developer I don’t want new github issues due to Zendesk ticket:) But when
 
 
 
-## Hooks to attend Zendesk/Github events ([Webtask](http://webtask.io/)) Installation
+## Installation Instructions
+
+**Hooks to attend Zendesk/Github events ([Webtask](http://webtask.io/))**
 
 Before start, get all the node modules
 ```
